@@ -1,6 +1,7 @@
 {
   "name": "driftagent(afm)",
   "version": "1.0.0",
+  "type": "module",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -12,6 +13,7 @@
   "dependencies": {
     "dotenv": "^17.4.0",
     "express": "^5.2.1",
+    "js-yaml": "^4.1.1",
     "node-fetch": "^3.3.2",
     "openai": "^6.33.0"
   }
