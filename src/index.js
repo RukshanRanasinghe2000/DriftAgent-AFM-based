@@ -29,7 +29,7 @@ const instructions = parts[2].trim();
 console.log("Loaded AFM Agent:", config.name);
 
 const openai = new OpenAI({
-    apiKey: process.env.OPENAI_API_KEY,
+    apiKey: process.env.GROQ_API_KEY,
 });
 
 // 🔹 Webhook endpoint
