@@ -5,11 +5,12 @@ description: "Detect mismatch between API code and OpenAPI spec"
 max_iterations: 20
 
 model:
-  name: "gpt-5-nano"
+  name: "llama-3.3-70b-versatile"
   provider: "openai"
+  base_url: "https://api.groq.com/openai/v1"
   authentication:
     type: "api-key"
-    api_key: "${env:OPENAI_API_KEY}"
+    api_key: "${env:GROQ_API_KEY}"
 
 interfaces:
   - type: "webhook"
