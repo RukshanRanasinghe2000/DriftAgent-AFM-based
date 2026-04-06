@@ -5,7 +5,7 @@ description: "Detect mismatch between API code and OpenAPI spec"
 max_iterations: 20
 
 model:
-  name: "gpt-4o"
+  name: "gpt-5-nano"
   provider: "openai"
   authentication:
     type: "api-key"
