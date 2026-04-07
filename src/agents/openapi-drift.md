@@ -26,7 +26,7 @@ tools:
         url: "https://api.githubcopilot.com/mcp/"
         authentication:
           type: "bearer"
-          token: "${env:GITHUB_TOKEN}"
+          token: "${env:GIT_PR_CHECKER_TOKEN}"
       tool_filter:
         allow:
           - "pull_request_read"
@@ -53,4 +53,4 @@ You detect drift between API implementation and OpenAPI specification.
 
 ## 4. Report
 - If mismatch found → explain clearly
-- If no issues → say "No API drift detected"
+- If no issues → respond with only "No API drift detected." and nothing else
