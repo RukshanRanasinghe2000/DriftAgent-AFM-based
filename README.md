@@ -175,3 +175,13 @@ Keeping the agent definition in a separate markdown file rather than inside appl
 ## License
 
 MIT License. See [LICENSE](./LICENSE) for details.
+
+## Demo
+
+### Drift detected:
+
+![PR Comment Demo 1](./demo/pr-c-demo1.png)
+
+### No issues found:
+
+![PR Comment Demo 2](./demo/pr-c-demo2.png)
