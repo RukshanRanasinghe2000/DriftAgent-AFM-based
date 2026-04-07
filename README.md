@@ -1,4 +1,4 @@
-# OpenAPI Drift Checker
+# DriftAgent-AFM-based
 
 An AI-powered agent that automatically detects drift between your API implementation and OpenAPI specification on every pull request. When a PR is opened or updated, the agent analyzes the diff against your `openapi.yaml` and posts a review comment with any mismatches found.
 
