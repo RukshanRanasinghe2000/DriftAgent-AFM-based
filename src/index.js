@@ -1,7 +1,7 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import fetch from 'node-fetch';
-import Groq from 'groq-sdk';
+import OpenAI from 'openai';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import fs from "fs";
@@ -28,8 +28,9 @@ const instructions = parts[2].trim();
 
 console.log("Loaded AFM Agent:", config.name);
 
-const openai = new Groq({
-    apiKey: process.env.GROQ_API_KEY,
+const openai = new OpenAI({
+    apiKey: process.env[config.model.authentication.api_key.replace('${env:', '').replace('}', '')],
+    baseURL: config.model.base_url,
 });
 
 // 🔹 Webhook endpoint
@@ -83,7 +84,7 @@ app.post("/webhook", async (req, res) => {
 
         // 🔹 3. Send ONLY DATA (no instructions here)
         const aiRes = await openai.chat.completions.create({
-            model: "llama-3.3-70b-versatile",
+            model: config.model.name,
             messages: [
                 {
                     role: "system",
