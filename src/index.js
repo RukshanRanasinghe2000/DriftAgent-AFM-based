@@ -33,7 +33,7 @@ const openai = new OpenAI({
     baseURL: config.model.base_url,
 });
 
-// 🔹 Webhook endpoint
+// Webhook endpoint
 app.post("/webhook", async (req, res) => {
     try {
         const action = req.body.action;
@@ -51,12 +51,12 @@ app.post("/webhook", async (req, res) => {
 
         console.log("Processing PR:", pr.html_url);
 
-        // 🔹 1. Get PR diff
+        // Get PR diff
         const diffRes = await fetch(
             `https://api.github.com/repos/${owner}/${repoName}/pulls/${prNumber}`,
             {
                 headers: {
-                    Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
+                    Authorization: `Bearer ${process.env.GIT_PR_CHECKER_TOKEN}`,
                     Accept: "application/vnd.github.v3.diff",
                 },
             }
@@ -64,12 +64,12 @@ app.post("/webhook", async (req, res) => {
 
         const diff = await diffRes.text();
 
-        // 🔹 2. Get OpenAPI file
+        // Get OpenAPI file
         const fileRes = await fetch(
             `https://api.github.com/repos/${owner}/${repoName}/contents/openapi.yaml`,
             {
                 headers: {
-                    Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
+                    Authorization: `Bearer ${process.env.GIT_PR_CHECKER_TOKEN}`,
                 },
             }
         );
@@ -82,7 +82,7 @@ app.post("/webhook", async (req, res) => {
         const fileData = await fileRes.json();
         const openapi = Buffer.from(fileData.content, "base64").toString("utf-8");
 
-        // 🔹 3. Send ONLY DATA (no instructions here)
+        // Send ONLY DATA (no instructions here)
         const aiRes = await openai.chat.completions.create({
             model: config.model.name,
             messages: [
@@ -105,13 +105,13 @@ app.post("/webhook", async (req, res) => {
 
         console.log("AI Result:\n", result);
 
-        // 🔹 4. Comment on PR
+        // Comment on PR
         await fetch(
             `https://api.github.com/repos/${owner}/${repoName}/issues/${prNumber}/comments`,
             {
                 method: "POST",
                 headers: {
-                    Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
+                    Authorization: `Bearer ${process.env.GIT_PR_CHECKER_TOKEN}`,
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
